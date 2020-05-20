@@ -42,7 +42,12 @@ function getUserInfo(req, res)
         if ( err ) return res.status(500).send({ message: err })
         if ( !user ) return res.status(404).send({ message: 'No se encontró el usuario' })
 
-        res.status(200).send(user)
+        res.status(200).send( { 
+            name: user.name, 
+            lastname: user.lastname,
+            tel: user.tel,
+            profile_image: user.profile_image
+         } )
 
     } )
 }

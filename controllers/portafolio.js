@@ -29,7 +29,7 @@ function savePortafolio(req, res)
 
         user.save( (err, userSaved) => {
             if(err) res.status(500).send({message: `Error al guardar el portafolio: ${err}`})
-            res.status(200).send(userSaved)
+            res.status(200).send(userSaved.portafolio)
         })
 
     })
@@ -44,7 +44,7 @@ function getPublicPortafolio(req, res)
         if ( err ) return res.status(500).send({ message: err })
         if ( !user ) return res.status(404).send({ message: 'No se encontró el portafolio' })
 
-        res.status(200).send(user.portafolio)
+        res.status(200).send({ portafolio: user.portafolio, social: user.social_urls })
 
     })
 }

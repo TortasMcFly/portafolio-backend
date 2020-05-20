@@ -3,6 +3,7 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 const PortafolioScheme = require('./portafolio').PortafolioSchema
+const SocialSchema = require('../models/social').SocialSchema
 const bcrypt = require('bcrypt-nodejs')
 
 const UserSchema = new Schema({
@@ -13,7 +14,8 @@ const UserSchema = new Schema({
     tel: { type: String, unique: true },
     password: { type: String, select: false },
     last_login: Date,
-    portafolio: PortafolioScheme
+    portafolio: PortafolioScheme,
+    social_urls: [ SocialSchema ]
 
 }, { timestamps: true })
 

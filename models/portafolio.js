@@ -8,8 +8,17 @@ const PortafolioSchema = new Schema({
     email: { type: String, unique: true, lowercase: true },
     bio: String,
     recognition: [String],
-    experiences: [String]
+    experiences: [String],
+    projects: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: "Project"
+        }
+    ]
 })
 
 const Portafolio = mongoose.model("Portafolio", PortafolioSchema)
-module.exports = { Portafolio, PortafolioSchema}
+module.exports = { 
+    Portafolio, 
+    PortafolioSchema
+}
