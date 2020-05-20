@@ -28,7 +28,6 @@ function signIn(req, res)
 
         req.user = user
         res.status(200).send({
-            message: 'Logueado con éxito',
             token: jwtService.createToken(user)
         })
 
