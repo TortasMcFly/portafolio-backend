@@ -9,7 +9,10 @@ const ProjectSchema = new Schema({
     cover_url: String,
     tools: [String],
     images: [String],
-    is_visible: {type: Boolean, default: true},
+    is_visible: {
+        type: Boolean, 
+        default: true
+    },
     portafolio_id: {
         type: Schema.Types.ObjectId,
         ref: "Portafolio"

@@ -8,11 +8,25 @@ const bcrypt = require('bcrypt-nodejs')
 
 const UserSchema = new Schema({
 
-    name: String,
-    lastname: String, 
+    name: { 
+        type: String, 
+        required: true 
+    },
+    lastname: {
+        type: String,
+        required: true
+    }, 
     profile_image: String,
-    tel: { type: String, unique: true },
-    password: { type: String, select: false },
+    tel: { 
+        type: String, 
+        unique: true,
+        required: true
+    },
+    password: { 
+        type: String, 
+        select: false,
+        required: true
+    },
     last_login: Date,
     portafolio: PortafolioScheme,
     social_urls: [ SocialSchema ]

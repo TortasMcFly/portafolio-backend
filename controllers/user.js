@@ -43,19 +43,31 @@ function getUserInfo(req, res)
         if ( !user ) return res.status(404).send({ message: 'No se encontró el usuario' })
 
         res.status(200).send( { 
-            name: user.name, 
-            lastname: user.lastname,
+            fullname: user.name + " " + user.lastname,
             tel: user.tel,
-            profile_image: user.profile_image
+            profile_image: user.profile_image,
+            bio: user.portafolio.bio,
+            email: user.portafolio.email
          } )
 
     } )
 }
 
+function updateUser(req, res)
+{
+    let user_id = req.user
+    let body = req.body
 
+    User.findByIdAndUpdate(user_id, body, (err, user) =>{
+        if ( err ) return res.status(500).send({ message: `Error al actualizar la información: ${err}` })
+
+        res.status(200).send( { message: 'Información actualizada' } )
+    })
+}
 
 module.exports = { 
     signUp, 
     signIn,
-    getUserInfo
+    getUserInfo,
+    updateUser
 }
