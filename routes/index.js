@@ -23,5 +23,6 @@ api.get('/v1/portafolio/publico/:username', PortafolioController.getPublicPortaf
 
 
 api.post('/v1/social', auth, SocialController.saveSocialUrl)
+api.delete('/v1/social', auth, SocialController.deleteAllSocialUrl)
 
 module.exports = api
