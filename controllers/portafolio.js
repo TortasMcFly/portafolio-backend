@@ -28,7 +28,7 @@ function savePortafolio(req, res)
         if ( !user ) return res.status(404).send({ message: 'No existe el usuario' })
 
         let portafolio = new Portafolio({
-            link: `${user.name}/${user._id}`,
+            link: `${user.name}?portaf_user=${user._id}`,
             email: body.email,
             bio: body.bio,
             recognition: body.recognition,
@@ -38,7 +38,7 @@ function savePortafolio(req, res)
 
         user.portafolio = portafolio
 
-        user.save( (err, userSaved) => {
+        user.save( (err) => {
             if(err) res.status(500).send({message: `Error al guardar el portafolio: ${err}`})
             res.status(200).send({ message: "Portafolio creado correctamente" })
         })
@@ -61,7 +61,7 @@ function updatePortafolio(req, res)
         user.portafolio.recognition = body.recognition
         user.portafolio.experiences = body.experiences
 
-        user.save( (err, userSaved) => {
+        user.save( (err) => {
             if(err) res.status(500).send({message: `Error al actualizar el portafolio: ${err}`})
             res.status(200).send({ message: "Portafolio actualizado correctamente" })
         })
@@ -80,7 +80,7 @@ function deletePortafolio(req, res)
 
         user.portafolio = {}
 
-        user.save( (err, userSaved) => {
+        user.save( (err) => {
             if(err) res.status(500).send({message: `Error al eliminar el portafolio: ${err}`})
             res.status(200).send({ message: "Portafolio eliminado correctamente" })
         })
@@ -91,7 +91,7 @@ function deletePortafolio(req, res)
 
 function getPublicPortafolio(req, res)
 {
-    let user_id = req.query.user_id
+    let user_id = req.query.portaf_user
 
     User.findById(user_id, (err, user) => {
 

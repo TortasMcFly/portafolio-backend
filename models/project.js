@@ -12,12 +12,12 @@ const ProjectSchema = new Schema({
     is_visible: {
         type: Boolean, 
         default: true
-    },
-    portafolio_id: {
-        type: Schema.Types.ObjectId,
-        ref: "Portafolio"
     }
 }, 
 { timestamps: true })
 
-module.exports = mongoose.model("Project", ProjectSchema)
+const Project = mongoose.model("Project", ProjectSchema)
+module.exports = { 
+    Project,
+    ProjectSchema
+}

@@ -45,9 +45,7 @@ function getUserInfo(req, res)
         res.status(200).send( { 
             fullname: user.name + " " + user.lastname,
             tel: user.tel,
-            profile_image: user.profile_image,
-            bio: user.portafolio.bio,
-            email: user.portafolio.email
+            profile_image: user.profile_image
          } )
 
     } )

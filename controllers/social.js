@@ -30,22 +30,21 @@ function saveSocialUrl(req, res)
 
 function deleteAllSocialUrl(req, res)
 {
-   let user_id = req.user
-   let body = req.body
+    let user_id = req.user
 
-   User.findById( user_id, (err, user) => {
-   	if ( err ) return res.status(500).send({ message: err })
-	if ( !user ) return res.status(404).send({ message: 'No existe el usuario' })     
+    User.findById( user_id, (err, user) => {
+   	    if ( err ) return res.status(500).send({ message: err })
+	    if ( !user ) return res.status(404).send({ message: 'No existe el usuario' })     
    
-	user.social_urls = []
+	    user.social_urls = []
 
-	user.save( (err, userSaved) => {
+	    user.save( (err) => {
            if (err) res.status(500).send( { message: `Error al guardar la información: ${err}` })
 		
            res.status(200).send( { message: 'Información eliminada correctamente' } )
         })
 
-   }) 
+    }) 
 }
 
 module.exports = {
