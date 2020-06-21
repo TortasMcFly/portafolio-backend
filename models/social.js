@@ -6,12 +6,10 @@ const Schema = mongoose.Schema
 const SocialSchema = new Schema({
     name: { 
         type: String, 
-        enum:['Facebook', 'Instagram', 'Twitter', 'LinkedIn'], 
-        unique: true
+        enum:['Facebook', 'Instagram', 'Twitter', 'LinkedIn']
     },
     url: { 
-        type: String, 
-        unique:true 
+        type: String
     }
 }, { timestamps: true })
 

@@ -29,7 +29,6 @@ function savePortafolio(req, res)
 
         let portafolio = new Portafolio({
             link: `${user.name}?portaf_user=${user._id}`,
-            email: body.email,
             bio: body.bio,
             recognition: body.recognition,
             experiences: body.experiences,
@@ -56,7 +55,6 @@ function updatePortafolio(req, res)
         if ( err ) return res.status(500).send({ message: err })
         if ( !user ) return res.status(404).send({ message: 'No se encontró el portafolio' })
 
-        user.portafolio.email = body.email
         user.portafolio.bio = body.bio
         user.portafolio.recognition = body.recognition
         user.portafolio.experiences = body.experiences

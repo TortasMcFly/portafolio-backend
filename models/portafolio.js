@@ -6,11 +6,6 @@ const ProjectSchema = require('../models/project').ProjectSchema
 
 const PortafolioSchema = new Schema({
     link: String,
-    email: { 
-        type: String, 
-        unique: true, 
-        lowercase: true 
-    },
     bio: String,
     recognition: [String],
     experiences: [String],

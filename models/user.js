@@ -22,9 +22,12 @@ const UserSchema = new Schema({
         unique: true,
         required: true
     },
+    email: { 
+        type: String,
+        lowercase: true 
+    },
     password: { 
-        type: String, 
-        select: false,
+        type: String,
         required: true
     },
     last_login: Date,
@@ -33,21 +36,18 @@ const UserSchema = new Schema({
 
 }, { timestamps: true })
 
-UserSchema.pre('save', function(next) {
-    let user = this
-    if(!user.isModified('password')) return next()
+UserSchema.methods.generateHash = function(password) {
+    return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
+}
 
-    bcrypt.genSalt(10, (err, salt) => {
-        if(err) return next(err)
-
-        bcrypt.hash(user.password, salt, null, (err, hash) => {
-            if(err) return next(err)
-
-            user.password = hash
-            next()
-        })
-    })
-})
+UserSchema.methods.comparePassword = function(candidatePassword) {
+    
+    if(this.password != null) {
+        return bcrypt.compareSync(candidatePassword, this.password);
+    } else {
+        return false;
+    }
+}
 
 
 

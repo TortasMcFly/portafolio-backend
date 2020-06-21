@@ -8,9 +8,11 @@ function signUp(req, res)
     const user = new User({
         name: req.body.name,
         lastname: req.body.lastname,
-        tel: req.body.tel,
-        password: req.body.password
+        email: req.body.email,
+        tel: req.body.tel
     })
+
+    user.password = user.generateHash(req.body.password)
 
     user.save( (err) => {
         if ( err ) return res.status(500).send({ message: `Ocurrió un error al registrar el usuario: ${err}` })
@@ -21,17 +23,24 @@ function signUp(req, res)
 
 function signIn(req, res)
 {
-    User.findOne( { tel: req.body.tel }, (err, user) => {
+    const body = req.body
+    User.findOne( { tel: body.tel }, (err, user) => {
 
         if ( err ) return res.status(500).send({ message: err })
         if ( !user ) return res.status(404).send({ message: 'No se encontró un usuario asociado a ese teléfono' })
 
-        req.user = user
-        res.status(200).send({
-            token: jwtService.createToken(user)
-        })
-
-    } )
+        const isValid = user.comparePassword(body.password)
+        
+        if( isValid ) {
+            req.user = user
+            res.status(200).send({
+                token: jwtService.createToken(user)
+            })
+        }
+        else {
+            res.status(404).send({ message: 'Contraseña incorrecta' })
+        }
+    })
 }
 
 function getUserInfo(req, res)
@@ -45,6 +54,7 @@ function getUserInfo(req, res)
         res.status(200).send( { 
             fullname: user.name + " " + user.lastname,
             tel: user.tel,
+            email: user.email,
             profile_image: user.profile_image
          } )
 
